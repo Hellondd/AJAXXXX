@@ -1,0 +1,66 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Анкета";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <h1 class="display-5 text-center mb-2">Заявка на участие</h1>
+        <p class="text-center text-muted mb-4">Заполните анкету, чтобы отправить заявку.</p>
+
+        @if (Model.IsSubmitted)
+        {
+            <section class="card border-success mb-4" aria-label="Результат отправки заявки">
+                <div class="card-header bg-success text-white">Заявка успешно заполнена</div>
+                <div class="card-body">
+                    <h2 class="h4">Ваша анкета</h2>
+                    <dl class="row mb-0">
+                        <dt class="col-sm-4">Имя и фамилия</dt>
+                        <dd class="col-sm-8">@Model.Form.FullName</dd>
+                        <dt class="col-sm-4">Электронная почта</dt>
+                        <dd class="col-sm-8">@Model.Form.Email</dd>
+                        <dt class="col-sm-4">Дата рождения</dt>
+                        <dd class="col-sm-8">@Model.Form.BirthDate?.ToString("dd.MM.yyyy")</dd>
+                        <dt class="col-sm-4">Город</dt>
+                        <dd class="col-sm-8">@Model.Form.City</dd>
+                        <dt class="col-sm-4">О себе</dt>
+                        <dd class="col-sm-8">@Model.Form.About</dd>
+                    </dl>
+                </div>
+            </section>
+        }
+
+        <form method="post" class="card shadow-sm">
+            <div class="card-body">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Form.FullName" class="form-label"></label>
+                    <input asp-for="Form.FullName" class="form-control" placeholder="Иван Иванов" />
+                    <span asp-validation-for="Form.FullName" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Form.Email" class="form-label"></label>
+                    <input asp-for="Form.Email" class="form-control" placeholder="name@example.com" />
+                    <span asp-validation-for="Form.Email" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Form.BirthDate" class="form-label"></label>
+                    <input asp-for="Form.BirthDate" class="form-control" />
+                    <span asp-validation-for="Form.BirthDate" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Form.City" class="form-label"></label>
+                    <input asp-for="Form.City" class="form-control" placeholder="Москва" />
+                    <span asp-validation-for="Form.City" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Form.About" class="form-label"></label>
+                    <textarea asp-for="Form.About" class="form-control" rows="3" placeholder="Ваши интересы"></textarea>
+                </div>
+                <button class="btn btn-primary" type="submit">Отправить заявку</button>
+            </div>
+        </form>
+    </div>
+</div>
