@@ -1,0 +1,17 @@
+@model string[]
+@{ ViewData["Title"] = "Файлы"; }
+<h1>Загрузка и скачивание файлов</h1>
+<p>Допустимы TXT, PDF, PNG и JPG до 10 МБ.</p>
+@if (TempData["Message"] is string message) { <p role="status">@message</p> }
+<form asp-action="Upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" accept=".txt,.pdf,.png,.jpg,.jpeg" required />
+    <button type="submit">Загрузить</button>
+</form>
+<h2>Загруженные файлы</h2>
+@if (Model.Length == 0) { <p>Пока файлов нет.</p> }
+else
+{
+    <ul>
+    @foreach (var name in Model) { <li><a asp-action="Download" asp-route-name="@name">@name</a></li> }
+    </ul>
+}
