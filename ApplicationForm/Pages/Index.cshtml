@@ -1,0 +1,81 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Заявка";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="text-center mb-4">
+            <h1 class="display-5">Заявка на участие</h1>
+            <p class="lead text-muted">Заполните анкету, чтобы оставить заявку.</p>
+        </div>
+
+        @if (Model.IsSubmitted)
+        {
+            <section class="alert alert-success" role="alert">
+                <h2 class="h4">Заявка успешно заполнена!</h2>
+                <p class="mb-0">Спасибо, @Model.FormData.FirstName. Ниже отображается ваша анкета.</p>
+            </section>
+
+            <section class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="h4 mb-0">Анкета участника</h2>
+                </div>
+                <dl class="row card-body mb-0">
+                    <dt class="col-sm-4">Имя и фамилия</dt>
+                    <dd class="col-sm-8">@Model.FormData.FirstName @Model.FormData.LastName</dd>
+                    <dt class="col-sm-4">Электронная почта</dt>
+                    <dd class="col-sm-8">@Model.FormData.Email</dd>
+                    <dt class="col-sm-4">Город</dt>
+                    <dd class="col-sm-8">@Model.FormData.City</dd>
+                    <dt class="col-sm-4">Возраст</dt>
+                    <dd class="col-sm-8">@Model.FormData.Age</dd>
+                    <dt class="col-sm-4">О себе</dt>
+                    <dd class="col-sm-8">@Model.FormData.About</dd>
+                </dl>
+            </section>
+        }
+
+        <form method="post" class="card shadow-sm p-4">
+            <h2 class="h4 mb-3">Личные данные</h2>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label asp-for="FormData.FirstName" class="form-label"></label>
+                    <input asp-for="FormData.FirstName" class="form-control" />
+                    <span asp-validation-for="FormData.FirstName" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="FormData.LastName" class="form-label"></label>
+                    <input asp-for="FormData.LastName" class="form-control" />
+                    <span asp-validation-for="FormData.LastName" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="FormData.Email" class="form-label"></label>
+                    <input asp-for="FormData.Email" class="form-control" />
+                    <span asp-validation-for="FormData.Email" class="text-danger"></span>
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="FormData.City" class="form-label"></label>
+                    <input asp-for="FormData.City" class="form-control" />
+                    <span asp-validation-for="FormData.City" class="text-danger"></span>
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="FormData.Age" class="form-label"></label>
+                    <input asp-for="FormData.Age" class="form-control" min="14" max="100" />
+                    <span asp-validation-for="FormData.Age" class="text-danger"></span>
+                </div>
+                <div class="col-12">
+                    <label asp-for="FormData.About" class="form-label"></label>
+                    <textarea asp-for="FormData.About" class="form-control" rows="3" placeholder="Расскажите немного о себе"></textarea>
+                </div>
+            </div>
+            <button class="btn btn-primary mt-4" type="submit">Отправить заявку</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
